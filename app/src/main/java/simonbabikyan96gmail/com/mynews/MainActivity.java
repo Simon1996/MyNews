@@ -3,6 +3,7 @@ package simonbabikyan96gmail.com.mynews;
 /**
  * Created by Admin on 23.12.2016.
  */
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -18,16 +19,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
 
-        RecyclerView recyclerView;
-        MyAdapter adapter;
+    RecyclerView recyclerView;
+    //MyAdapter adapter;
 
 
-//массив иконок для табов
+    //массив иконок для табов
     private int[] tabIcons = {
             R.drawable.news_icon,
             R.drawable.favorite_icon,
@@ -51,12 +58,13 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-        recyclerView = (RecyclerView)findViewById(R.id.recycle);
-        adapter = new MyAdapter();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-
+//// TODO: тут программа крашится, нужно проверить ошибку
+//        recyclerView = (RecyclerView)findViewById(R.id.recycle);
+//        adapter = new MyAdapter();
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setAdapter(adapter);
+        MyAsynk asynk = new MyAsynk();
+        asynk.execute();
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter
@@ -70,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
                 viewPager.setCurrentItem(tab.getPosition());
 
             }
-
 
 
             @Override
@@ -88,15 +95,17 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
+
+    public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         ArrayList<News> arrayList;
 
-        public MyAdapter(){
+        public MyAdapter() {
             arrayList = new ArrayList<>();
             notifyDataSetChanged();
         }
-        public void addNews(News news){
+
+        public void addNews(News news) {
             arrayList.add(news);
             notifyDataSetChanged();
         }
@@ -116,16 +125,53 @@ public class MainActivity extends AppCompatActivity {
         public int getItemCount() {
             return arrayList.size();
         }
+
         //Определяем елементы
         public class ViewHolder extends RecyclerView.ViewHolder {
             TextView title;
             TextView article;
             ImageView image;
+
             public ViewHolder(View itemView) {
                 super(itemView);
-                title = (TextView)itemView.findViewById(R.id.title);
-                article = (TextView)itemView.findViewById(R.id.article_not_all);
-                image = (ImageView)itemView.findViewById(R.id.image);
+                title = (TextView) itemView.findViewById(R.id.title);
+                article = (TextView) itemView.findViewById(R.id.article_not_all);
+                image = (ImageView) itemView.findViewById(R.id.image);
+            }
+        }
+    }
+
+
+//// TODO: Сделать AsynksTast JSON объекта
+    class MyAsynk extends AsyncTask<Void,Void,StringBuilder> {
+
+        @Override
+        //работа в бекграунде
+        protected StringBuilder doInBackground(Void... voids) {
+            StringBuilder stringBuilder = new StringBuilder();
+            String key = "0aa2713d5a1a4aad9a914c9294f6a22b";
+            try {
+                URL url = new URL("https://newsapi.org/v1/articles?source=the-next-web&sortBy=latest&apiKey=" + key);
+                URLConnection uc = url.openConnection();
+                uc.connect();
+                BufferedInputStream in = new BufferedInputStream(uc.getInputStream());
+                int ch;
+                while ((ch = in.read()) != -1) {
+                    stringBuilder.append((char) ch);
+                }
+            } catch (Exception e) {
+            }
+            return stringBuilder;
+        }
+
+        @Override
+        protected void onPostExecute(StringBuilder stringBuilder) {
+            News news = new News(stringBuilder.toString(), "", "");
+//            adapter.addNews(news);
+            try {
+                JSONObject json = new JSONObject(stringBuilder.toString());
+                JSONArray array = json.getJSONArray("article");
+            } catch (Exception e) {
             }
         }
     }

@@ -80,7 +80,7 @@ public class TabFragment1 extends Fragment {
         }
 //Кидаем название, текст новости и изображение по местам.
         @Override
-            public void onBindViewHolder(MyAdapter.ViewHolder holder, final int position) {
+            public void onBindViewHolder(final MyAdapter.ViewHolder holder, final int position) {
 
             holder.article.setText(arrayList.get(position).getArticle());
             holder.title.setText(arrayList.get(position).getTitle());
@@ -93,14 +93,19 @@ public class TabFragment1 extends Fragment {
          holder.itemView.setOnClickListener(new View.OnClickListener(){
              @Override
              public void onClick(View v){
+
                  Intent intent = new Intent(getActivity(), Article_Activity.class);
-                 arrayList.get(position);
-                 
+                 intent.putExtra("title", arrayList.get(position).getTitle());
+                 intent.putExtra("article", arrayList.get(position).getArticle());
+                 intent.putExtra("image", arrayList.get(position).getImageUrl());
+
+
+//                 intent.putExtra("article", holder.article.getText());
+//                 intent.putExtra("titles", holder.title.getText());
+//                 intent.putExtra("img", holder.image.getDrawingCache());
                  startActivity(intent);
              }
-
          });
-
         }
 
 

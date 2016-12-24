@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="205dp"
     >
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -25,7 +26,8 @@
             android:foregroundGravity="right"
             android:layout_gravity="top|center|right"
             android:gravity="center_vertical|center_horizontal|top"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="normal|bold" />
 
         <TextView
             android:id="@+id/desc"
@@ -36,7 +38,5 @@
             android:textSize="15sp"
             android:layout_gravity="bottom"
             android:maxLength="100"/>
-
-
     </android.support.v7.widget.CardView>
 </RelativeLayout>

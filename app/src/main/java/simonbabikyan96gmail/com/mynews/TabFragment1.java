@@ -16,6 +16,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -31,6 +34,7 @@ public class TabFragment1 extends Fragment {
     MyAsynk asynk;
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -43,6 +47,7 @@ public class TabFragment1 extends Fragment {
         recyclerView.setAdapter(myAdapter);
         asynk = new MyAsynk();
         asynk.execute();
+
         return view;
        // return inflater.inflate(R.layout.tab_fragment_1, container, false);
     }
@@ -52,8 +57,7 @@ public class TabFragment1 extends Fragment {
 
         public MyAdapter() {
             arrayList = new ArrayList<>();
-            arrayList.add(new News());
-            arrayList.add(new News());
+
             notifyDataSetChanged();
         }
 
@@ -116,13 +120,28 @@ public class TabFragment1 extends Fragment {
 
         @Override
         protected void onPostExecute(StringBuilder stringBuilder) {
-            News news = new News(stringBuilder.toString(), "", "");
-            myAdapter.addNews(news);
+
+            //News news = new News(stringBuilder.toString(), "", "");
+            //myAdapter.addNews(news);
             try {
-                JSONObject json = new JSONObject(stringBuilder.toString());
-                JSONArray array = json.getJSONArray("article");
-            } catch (Exception e) {
+                JSONObject jsonObject = new JSONObject(stringBuilder.toString());
+                JSONArray array = jsonObject.getJSONArray("articles");
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject object = array.getJSONObject(i);
+                    String title = object.getString("title");
+                    String desc = object.getString("description");
+                    String imageUrl = object.getString("urlToImage");
+                    News news = new News(title,desc,imageUrl);
+                    myAdapter.addNews(news);
+                    myAdapter.notifyDataSetChanged();
+                }
+
             }
+
+            catch (Exception e){
+
+                }
+
         }
     }
 }

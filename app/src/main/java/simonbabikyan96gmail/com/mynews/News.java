@@ -1,10 +1,12 @@
 package simonbabikyan96gmail.com.mynews;
 
+import io.realm.RealmObject;
+
 /**
  * Created by Admin on 23.12.2016.
  */
 
-public class News {
+public class News extends RealmObject {
     private String title;
     private String article;
     private String imageUrl;

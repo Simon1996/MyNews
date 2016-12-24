@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
@@ -10,12 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         card_view:cardCornerRadius="0dp"
-        style="@style/MyCardViewStyle">
+        style="@style/MyCardViewStyle"
+        >
         <ImageView
             android:id="@+id/image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="@color/colorPrimary"/>
+            android:background="#fff"/>
 
         <TextView
             android:id="@+id/title"
@@ -25,7 +27,8 @@
             android:foregroundGravity="right"
             android:layout_gravity="top|center|right"
             android:gravity="center_vertical|center_horizontal|top"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="normal|bold" />
 
         <TextView
             android:id="@+id/desc"

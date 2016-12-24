@@ -15,7 +15,7 @@
             android:id="@+id/image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="@color/colorPrimary"/>
+            android:background="#fff"/>
 
         <TextView
             android:id="@+id/title"

@@ -57,14 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-//// TODO: тут программа крашится, нужно проверить ошибку
 
-//        recyclerView = (RecyclerView)findViewById(R.id.recycle);
-//        myAdapter = new MyAdapter();
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setAdapter(myAdapter);
-//        MyAsynk asynk = new MyAsynk();
-//        asynk.execute();
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter
@@ -142,53 +135,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//// TODO: Сделать AsynksTast JSON объекта
 
-//    class MyAsynk extends AsyncTask<Void,Void,StringBuilder> {
-//
-//        @Override
-//        //работа в бекграунде
-//        protected StringBuilder doInBackground(Void... voids) {
-//            StringBuilder stringBuilder = new StringBuilder();
-//            String key = "0aa2713d5a1a4aad9a914c9294f6a22b";
-//            try {
-//                URL url = new URL("https://newsapi.org/v1/articles?source=the-next-web&sortBy=latest&apiKey=" + key);
-//                URLConnection uc = url.openConnection();
-//                uc.connect();
-//                BufferedInputStream in = new BufferedInputStream(uc.getInputStream());
-//                int ch;
-//                while ((ch = in.read()) != -1) {
-//                    stringBuilder.append((char) ch);
-//                }
-//            } catch (Exception e) {
-//            }
-//            return stringBuilder;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(StringBuilder stringBuilder) {
-//            News news = new News(stringBuilder.toString(), "", "");
-////            myAdapter.addNews(news);
-//            try {
-//                JSONObject json = new JSONObject(stringBuilder.toString());
-//                JSONArray array = json.getJSONArray("article");
-//            } catch (Exception e) {
-//            }
-//        }
-//    }
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 }

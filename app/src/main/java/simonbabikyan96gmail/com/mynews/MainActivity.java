@@ -18,10 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.BufferedInputStream;
 import java.net.URL;
 import java.net.URLConnection;
@@ -30,8 +28,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    //MyAdapter adapter;
+        RecyclerView recyclerView;
+        MyAdapter myAdapter;
 
 
     //массив иконок для табов
@@ -58,13 +56,15 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
 //// TODO: тут программа крашится, нужно проверить ошибку
+
 //        recyclerView = (RecyclerView)findViewById(R.id.recycle);
-//        adapter = new MyAdapter();
+//        myAdapter = new MyAdapter();
 //        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setAdapter(adapter);
-        MyAsynk asynk = new MyAsynk();
-        asynk.execute();
+//        recyclerView.setAdapter(myAdapter);
+//        MyAsynk asynk = new MyAsynk();
+//        asynk.execute();
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter
@@ -143,38 +143,39 @@ public class MainActivity extends AppCompatActivity {
 
 
 //// TODO: Сделать AsynksTast JSON объекта
-    class MyAsynk extends AsyncTask<Void,Void,StringBuilder> {
 
-        @Override
-        //работа в бекграунде
-        protected StringBuilder doInBackground(Void... voids) {
-            StringBuilder stringBuilder = new StringBuilder();
-            String key = "0aa2713d5a1a4aad9a914c9294f6a22b";
-            try {
-                URL url = new URL("https://newsapi.org/v1/articles?source=the-next-web&sortBy=latest&apiKey=" + key);
-                URLConnection uc = url.openConnection();
-                uc.connect();
-                BufferedInputStream in = new BufferedInputStream(uc.getInputStream());
-                int ch;
-                while ((ch = in.read()) != -1) {
-                    stringBuilder.append((char) ch);
-                }
-            } catch (Exception e) {
-            }
-            return stringBuilder;
-        }
-
-        @Override
-        protected void onPostExecute(StringBuilder stringBuilder) {
-            News news = new News(stringBuilder.toString(), "", "");
-//            adapter.addNews(news);
-            try {
-                JSONObject json = new JSONObject(stringBuilder.toString());
-                JSONArray array = json.getJSONArray("article");
-            } catch (Exception e) {
-            }
-        }
-    }
+//    class MyAsynk extends AsyncTask<Void,Void,StringBuilder> {
+//
+//        @Override
+//        //работа в бекграунде
+//        protected StringBuilder doInBackground(Void... voids) {
+//            StringBuilder stringBuilder = new StringBuilder();
+//            String key = "0aa2713d5a1a4aad9a914c9294f6a22b";
+//            try {
+//                URL url = new URL("https://newsapi.org/v1/articles?source=the-next-web&sortBy=latest&apiKey=" + key);
+//                URLConnection uc = url.openConnection();
+//                uc.connect();
+//                BufferedInputStream in = new BufferedInputStream(uc.getInputStream());
+//                int ch;
+//                while ((ch = in.read()) != -1) {
+//                    stringBuilder.append((char) ch);
+//                }
+//            } catch (Exception e) {
+//            }
+//            return stringBuilder;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(StringBuilder stringBuilder) {
+//            News news = new News(stringBuilder.toString(), "", "");
+////            myAdapter.addNews(news);
+//            try {
+//                JSONObject json = new JSONObject(stringBuilder.toString());
+//                JSONArray array = json.getJSONArray("article");
+//            } catch (Exception e) {
+//            }
+//        }
+//    }
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        getMenuInflater().inflate(R.menu.menu_main, menu);

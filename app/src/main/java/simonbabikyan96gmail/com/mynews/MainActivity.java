@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
             public ViewHolder(View itemView) {
                 super(itemView);
                 title = (TextView) itemView.findViewById(R.id.title);
-                article = (TextView) itemView.findViewById(R.id.article_not_all);
+                article = (TextView) itemView.findViewById(R.id.desc);
                 image = (ImageView) itemView.findViewById(R.id.image);
             }
         }

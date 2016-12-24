@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class TabFragment2 extends Fragment {
     RecyclerView recyclerView;
     MyAdapter myAdapterTwo;
+    ArrayList<News> arrayList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tab_fragment_2, container, false);
@@ -26,13 +27,12 @@ public class TabFragment2 extends Fragment {
         myAdapterTwo = new MyAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(myAdapterTwo);
+        arrayList.add(new News());
         return view;
     }
 
-
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
-        ArrayList<News> arrayList;
 
         public MyAdapter() {
             arrayList = new ArrayList<>();
@@ -71,7 +71,7 @@ public class TabFragment2 extends Fragment {
             public ViewHolder(View itemView) {
                 super(itemView);
                 title = (TextView) itemView.findViewById(R.id.title);
-                article = (TextView) itemView.findViewById(R.id.article_not_all);
+                article = (TextView) itemView.findViewById(R.id.desc);
                 image = (ImageView) itemView.findViewById(R.id.image);
             }
         }

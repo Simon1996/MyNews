@@ -6,15 +6,17 @@ import io.realm.RealmObject;
  * Created by Admin on 23.12.2016.
  */
 
-public class News extends RealmObject {
+public class News {
     private String title;
     private String article;
     private String imageUrl;
+    private String articleUrl;
 
-    public News(String title, String article, String imageUrl) {
+    public News(String title, String article, String imageUrl, String articleUrl) {
         this.title = title;
         this.article = article;
         this.imageUrl = imageUrl;
+        this.articleUrl = articleUrl;
     }
 
     public News(){
@@ -42,5 +44,13 @@ public class News extends RealmObject {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getArticleUrl() {
+        return articleUrl;
+    }
+
+    public void setArticleUrl(String articleUrl) {
+        this.articleUrl = articleUrl;
     }
 }
